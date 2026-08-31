@@ -1,0 +1,101 @@
+# ─────────────────────────────────────────────────────────────
+# Dependencies
+# ─────────────────────────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.js
+.yarn/
+.pnpm-store/
+
+# ─────────────────────────────────────────────────────────────
+# Secrets / environment
+# Only .env.example is committed — see README.md Quick start.
+# ─────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+auth.json
+storageState*.json
+.auth/
+
+# ─────────────────────────────────────────────────────────────
+# Playwright output (generated on every run)
+# ─────────────────────────────────────────────────────────────
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+.playwright-mcp/
+.cache/
+
+# ─────────────────────────────────────────────────────────────
+# Reports & run evidence (regenerated — not source)
+# outputDir + allure outputFolder from playwright.config.ts
+# ─────────────────────────────────────────────────────────────
+allure-results/
+allure-report/
+.allure/
+reports/allure-results/
+reports/allure-report/
+reports/screenshots/
+reports/videos/
+reports/traces/
+downloads/
+
+# Ad-hoc run screenshots at the repo root (docs/**/screenshots/ is cited
+# evidence and stays tracked)
+/screenshots/
+*.zip
+*.webm
+*.trace
+
+# Keep the reports/ scaffold and its docs
+!reports/README.md
+!reports/flaky-tests-log.md
+
+# ─────────────────────────────────────────────────────────────
+# Logs
+# ─────────────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ─────────────────────────────────────────────────────────────
+# TypeScript / build
+# ─────────────────────────────────────────────────────────────
+*.tsbuildinfo
+dist/
+build/
+coverage/
+
+# ─────────────────────────────────────────────────────────────
+# Editor / IDE
+# ─────────────────────────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ─────────────────────────────────────────────────────────────
+# Claude Code — personal overrides only; shared config is committed
+# ─────────────────────────────────────────────────────────────
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
+
+# ─────────────────────────────────────────────────────────────
+# OS noise
+# ─────────────────────────────────────────────────────────────
+.DS_Store
+._*
+Thumbs.db
+desktop.ini

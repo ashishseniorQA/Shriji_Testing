@@ -1,0 +1,70 @@
+# Template GitHub Actions workflow implementing the gating strategy in ci-cd/README.md.
+# Copy to .github/workflows/qa-critical-suite.yml (in whichever repo hosts this QA
+# framework) and fill in the repo secrets referenced below. Not wired up automatically —
+# this project's root directory is not yet a git repository.
+#
+# Gating:
+#   - every push  -> tests/smoke (fast, blocking — "is it even up")
+#   - every PR    -> tests/e2e/critical-flows (blocking — release gate)
+name: QA Critical Suite
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [main]
+
+env:
+  # Never point CI at production — see config/README.md environment policy.
+  ENVIRONMENT: testing
+  BASE_URL: ${{ secrets.QA_BASE_URL }}
+  API_BASE_URL: ${{ secrets.QA_API_BASE_URL }}
+  TEST_CENTRE: ${{ secrets.QA_TEST_CENTRE }}
+  ADMIN_USER_EMAIL: ${{ secrets.QA_ADMIN_USER_EMAIL }}
+  ADMIN_USER_PASSWORD: ${{ secrets.QA_ADMIN_USER_PASSWORD }}
+  STAFF_EMAIL: ${{ secrets.QA_STAFF_EMAIL }}
+  STAFF_PASSWORD: ${{ secrets.QA_STAFF_PASSWORD }}
+
+jobs:
+  smoke:
+    name: Smoke (every push)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:smoke
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-allure-results
+          path: reports/allure-results
+          retention-days: 14
+
+  critical-flows:
+    name: Critical flows (every PR)
+    needs: smoke
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e:critical
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: critical-flows-report
+          path: |
+            reports/allure-results
+            reports/videos
+          retention-days: 14

@@ -1,0 +1,54 @@
+[
+  { "id": "TS-A01", "module": "Auth", "scenario": "Empty-form submit shows all 3 field validation errors (centre/email/password)", "result": "Pass" },
+  { "id": "TS-A02", "module": "Auth", "scenario": "Invalid email format rejected with inline error", "result": "Pass" },
+  { "id": "TS-A03", "module": "Auth", "scenario": "Valid centre + correct email format + wrong password shows generic 'Invalid email or password' (enumeration-safe)", "result": "Pass" },
+  { "id": "TS-A04", "module": "Auth", "scenario": "Forgot Password: empty submit shows validation error", "result": "Pass" },
+  { "id": "TS-A05", "module": "Auth", "scenario": "Forgot Password: non-existent email shows identical success screen (EDGE-011, enumeration-safe)", "result": "Pass" },
+  { "id": "TS-A06", "module": "Auth", "scenario": "Valid admin login redirects to /dashboard", "result": "Pass" },
+  { "id": "TS-A07", "module": "Auth", "scenario": "Logout clears session and redirects to /login", "result": "Pass" },
+  { "id": "TS-A08", "module": "Auth", "scenario": "Direct URL access to /dashboard while logged out redirects to /login (no auth bypass)", "result": "Pass" },
+  { "id": "TS-A09", "module": "Auth", "scenario": "Staff login succeeds against its assigned centre", "result": "Fail", "bugId": "BUG-001" },
+  { "id": "TS-A10", "module": "Auth", "scenario": "Login/Forgot Password field copy consistency", "result": "Fail", "bugId": "BUG-002" },
+  { "id": "TS-A11", "module": "Auth", "scenario": "No console.error on expected/handled failure flows", "result": "Fail", "bugId": "BUG-003" },
+  { "id": "TS-A12", "module": "Auth", "scenario": "Session timeout / silent refresh behavior after ~15 min idle", "result": "Not Executed", "notes": "Requires a real 15-minute wait; deferred due to session time constraints, same as prior QA-DIGEST practice for time-gated checks." },
+
+  { "id": "TS-B01", "module": "Admission", "scenario": "Empty-form submit shows all required-field validation messages", "result": "Pass" },
+  { "id": "TS-B02", "module": "Admission", "scenario": "Negative Fees Paid rejected ('Must be greater than 0')", "result": "Pass" },
+  { "id": "TS-B03", "module": "Admission", "scenario": "Mobile number under 10 digits rejected", "result": "Pass" },
+  { "id": "TS-B04", "module": "Admission", "scenario": "Mobile number accepts only numeric 10-digit input (rejects alpha)", "result": "Fail", "bugId": "BUG-004" },
+  { "id": "TS-B05", "module": "Admission", "scenario": "No console warnings on Add Admission page load", "result": "Fail", "bugId": "BUG-005" },
+  { "id": "TS-B06", "module": "Admission", "scenario": "Course dropdown contains only clean, intentional entries", "result": "Fail", "bugId": "BUG-006" },
+  { "id": "TS-B07", "module": "Admission", "scenario": "Duplicate Admission Number blocked with live validation, Submit disabled", "result": "Pass" },
+  { "id": "TS-B08", "module": "Admission", "scenario": "Valid admission creation succeeds and appears in list", "result": "Pass" },
+  { "id": "TS-B09", "module": "Admission", "scenario": "Edit Admission locks fee/payment/date fields, allows name/mobile edits", "result": "Pass" },
+  { "id": "TS-B10", "module": "Admission", "scenario": "Cancel Admission dialog shows correct copy and cancels record", "result": "Pass" },
+  { "id": "TS-B11", "module": "Admission", "scenario": "Bulk Upload happy/negative paths (template, partial failure, duplicate rejection)", "result": "Not Executed", "notes": "Already extensively verified working in prior session (LV-32); deferred here due to time constraints to prioritize never-before-tested modules (Users/Settings/Notifications)." },
+
+  { "id": "TS-C01", "module": "Installments", "scenario": "Admission Number auto-fills Roll No/Name/Father/Course/Final Fee/Remaining Fee/Mobile fields correctly", "result": "Pass" },
+  { "id": "TS-C02", "module": "Installments", "scenario": "Fees exceeding Remaining Fee is blocked with inline error, Submit disabled", "result": "Pass" },
+  { "id": "TS-C03", "module": "Installments", "scenario": "Fees = 0 is rejected", "result": "Fail", "bugId": "BUG-007" },
+  { "id": "TS-C04", "module": "Installments", "scenario": "No console warnings on Add/Reset Installment form", "result": "Fail", "bugId": "BUG-005" },
+
+  { "id": "TS-D01", "module": "Refund/Receipt", "scenario": "Cancel Admission dialog and refund toggle regression spot-check", "result": "Pass", "notes": "Already exhaustively covered by automated suite (refund.spec.ts) in prior session; spot-checked here, no regressions." },
+  { "id": "TS-D02", "module": "Refund/Receipt", "scenario": "Receipt page (/receipts/:id) loads with no console errors", "result": "Pass" },
+
+  { "id": "TS-E01", "module": "Dashboard", "scenario": "Dashboard loads with no console errors", "result": "Pass" },
+  { "id": "TS-E02", "module": "Students", "scenario": "Students roster page loads with no console errors", "result": "Pass" },
+  { "id": "TS-E03", "module": "Reports", "scenario": "Reports page loads with no console errors", "result": "Pass" },
+
+  { "id": "TS-F01", "module": "Users", "scenario": "Empty Add User form shows Name/Email/Role required errors", "result": "Pass" },
+  { "id": "TS-F02", "module": "Users", "scenario": "Valid Add User creates account, shows 'pending' status and invite toast", "result": "Pass" },
+  { "id": "TS-F03", "module": "Users", "scenario": "Duplicate email blocked with 'That email is already in use.'", "result": "Pass" },
+  { "id": "TS-F04", "module": "Users", "scenario": "Delete User shows confirmation dialog and removes the account cleanly", "result": "Pass" },
+  { "id": "TS-F05", "module": "Users", "scenario": "Self-protection guards (can't edit/delete own account) still enforced", "result": "Pass" },
+  { "id": "TS-F06", "module": "Users", "scenario": "Configured STAFF_EMAIL test credential appears in Users Management", "result": "Fail", "bugId": "BUG-001", "notes": "Cross-referenced finding - the actual staff-role account in the system is a different email entirely." },
+  { "id": "TS-F07", "module": "Users", "scenario": "User display names are free of typos", "result": "Fail", "bugId": "BUG-008" },
+
+  { "id": "TS-G01", "module": "Settings", "scenario": "Change Password: mismatch between New/Confirm shows inline error", "result": "Pass" },
+  { "id": "TS-G02", "module": "Settings", "scenario": "Change Password mismatch error copy is grammatically correct", "result": "Fail", "bugId": "BUG-010" },
+  { "id": "TS-G03", "module": "Settings", "scenario": "Password fields declare autocomplete attributes", "result": "Fail", "bugId": "BUG-009" },
+  { "id": "TS-G04", "module": "Settings", "scenario": "Institute Details / Bank / Course / Centre management sections render correctly", "result": "Pass" },
+  { "id": "TS-G05", "module": "Settings", "scenario": "Notifications toggle regression spot-check", "result": "Pass", "notes": "Already verified live in prior session (LV-20); spot-checked visually here, no regression." },
+
+  { "id": "TS-H01", "module": "Notifications", "scenario": "Notification bell popover opens and lists recent admission/installment events", "result": "Pass" }
+]
